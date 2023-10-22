@@ -1,0 +1,101 @@
+Oct 22, 2023 2:50:18.819683623 PM comp512st.tiapp.TreasureIslandApp main INFO: Started with arguments : [open-gpu-16:40131, open-gpu-16:40131,open-gpu-16:40231,open-gpu-16:40331, game-31-99, 3, 1]
+Oct 22, 2023 2:50:18.826292307 PM comp512.utils.FailCheck <init> INFO: Initializing failure check emulation setup....
+Oct 22, 2023 2:50:18.838274657 PM comp512.gcl.GCL <init> INFO: Host open-gpu-16/10.69.38.116:40131
+Oct 22, 2023 2:50:18.838602976 PM comp512.gcl.GCL <init> INFO: Initializing outbox despatcher threads.
+Oct 22, 2023 2:50:18.839439750 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40131: Starting outbox despatch thread for process.
+Oct 22, 2023 2:50:18.839539586 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Starting outbox despatch thread for process.
+Oct 22, 2023 2:50:18.839441233 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Starting outbox despatch thread for process.
+Oct 22, 2023 2:50:18.844169519 PM comp512.ti.TreasureIsland <init> INFO: Treasure Island initialized.
+Oct 22, 2023 2:50:20.333272916 PM comp512st.tiapp.TreasureIslandApp main FINE: cmd is : L
+Oct 22, 2023 2:50:20.341530109 PM comp512.gcl.GCL broadcastMsg FINE: Broadcast message request received. Translating to point-to-point messages : Propose[bid=0]
+Oct 22, 2023 2:50:20.341902133 PM comp512.gcl.GCL sendMsg FINE: Request received to send message to open-gpu-16:40131. Propose[bid=0]
+Oct 22, 2023 2:50:20.342508263 PM comp512.gcl.GCL sendMsg FINE: Request received to send message to open-gpu-16:40231. Propose[bid=0]
+Oct 22, 2023 2:50:20.342803357 PM comp512.gcl.GCL sendMsg FINE: Request received to send message to open-gpu-16:40331. Propose[bid=0]
+Oct 22, 2023 2:50:20.344472189 PM comp512.gcl.GCL$InboxListener run INFO: Network connection request from  /10.69.38.116
+Oct 22, 2023 2:50:20.348268697 PM comp512.gcl.GCL$GCLOutBoxDespatcher openConnection SEVERE: open-gpu-16:40231: Encountered IOException while trying to establish.  Inet: open-gpu-16/10.69.38.116 port: 40231 : java.net.ConnectException: Connection refused
+java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.connect0(Native Method)
+	at java.base/sun.nio.ch.Net.connect(Net.java:579)
+	at java.base/sun.nio.ch.Net.connect(Net.java:568)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:576)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:666)
+	at java.base/java.net.Socket.connect(Socket.java:600)
+	at java.base/java.net.Socket.<init>(Socket.java:509)
+	at java.base/java.net.Socket.<init>(Socket.java:321)
+	at comp512.gcl.GCL$GCLOutBoxDespatcher.openConnection(GCL.java:71)
+	at comp512.gcl.GCL$GCLOutBoxDespatcher.run(GCL.java:112)
+
+Oct 22, 2023 2:50:20.348286111 PM comp512.gcl.GCL$GCLOutBoxDespatcher openConnection SEVERE: open-gpu-16:40331: Encountered IOException while trying to establish.  Inet: open-gpu-16/10.69.38.116 port: 40331 : java.net.ConnectException: Connection refused
+java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.connect0(Native Method)
+	at java.base/sun.nio.ch.Net.connect(Net.java:579)
+	at java.base/sun.nio.ch.Net.connect(Net.java:568)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:576)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:666)
+	at java.base/java.net.Socket.connect(Socket.java:600)
+	at java.base/java.net.Socket.<init>(Socket.java:509)
+	at java.base/java.net.Socket.<init>(Socket.java:321)
+	at comp512.gcl.GCL$GCLOutBoxDespatcher.openConnection(GCL.java:71)
+	at comp512.gcl.GCL$GCLOutBoxDespatcher.run(GCL.java:112)
+
+Oct 22, 2023 2:50:20.351143353 PM comp512.gcl.GCL$GCLOutBoxDespatcher run FINE: open-gpu-16:40131: Sending message to. message: [senderProcess:open-gpu-16:40131:val:Propose[bid=0]]
+Oct 22, 2023 2:50:20.351434203 PM comp512.gcl.GCL$InboxListener run INFO: open-gpu-16:40131: Input stream set up for this process to receive incoming messages. Inet: /10.69.38.116
+Oct 22, 2023 2:50:20.351929903 PM comp512.gcl.GCL$GCLInbox run INFO: open-gpu-16:40131: Starting an inBox thread to receive messages from this process.
+Oct 22, 2023 2:50:20.352140314 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 100 milliseconds.
+Oct 22, 2023 2:50:20.352140438 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 100 milliseconds.
+Oct 22, 2023 2:50:20.368155266 PM comp512.gcl.GCL$GCLInbox run FINE: open-gpu-16:40131: Received a message from. message: [senderProcess:open-gpu-16:40131:val:Propose[bid=0]]
+Oct 22, 2023 2:50:20.368620390 PM comp512.gcl.GCL readGCMessage INFO: Delivering message : [senderProcess:open-gpu-16:40131:val:Propose[bid=0]]
+Oct 22, 2023 2:50:20.452962278 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 200 milliseconds.
+Oct 22, 2023 2:50:20.452962125 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 200 milliseconds.
+Oct 22, 2023 2:50:20.654223695 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 400 milliseconds.
+Oct 22, 2023 2:50:20.654223732 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 400 milliseconds.
+Oct 22, 2023 2:50:21.055311582 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 800 milliseconds.
+Oct 22, 2023 2:50:21.055311743 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 800 milliseconds.
+Oct 22, 2023 2:50:21.856206249 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:21.856373381 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:22.857169765 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:22.857234699 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:23.858254001 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:23.858254040 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:24.859314424 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:24.859314478 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:25.860317977 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:25.860387306 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:26.861268831 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:26.861451099 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:27.862122991 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:27.862161470 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:28.862774415 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:28.862964480 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:29.863551225 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:29.863770571 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:30.864716165 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:30.864716302 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:31.865479298 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:31.865672918 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:32.866131201 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:32.866197763 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:33.866836877 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:33.866931852 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:34.867490156 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:34.867800794 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:35.868203915 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:35.868411939 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:36.869059195 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:36.869232808 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:37.869944062 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:37.869946389 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:38.870691951 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:38.871000374 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:39.871523235 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:39.871821349 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:40.872412549 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:40.872412547 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:41.873252431 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:41.873253681 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:42.874071950 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:42.874102776 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:43.874625653 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40231: Will try connecting to  after 1000 milliseconds.
+Oct 22, 2023 2:50:43.875025544 PM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: open-gpu-16:40331: Will try connecting to  after 1000 milliseconds.

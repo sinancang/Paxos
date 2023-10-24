@@ -1,6 +1,6 @@
 package comp512st.paxos.commands;
 
-public record Propose(int bid) implements Command {
+public record Propose(int bid, String sender) implements Command {
     @Override
     public boolean isProposerCommand() {
         return true;
@@ -10,4 +10,11 @@ public record Propose(int bid) implements Command {
     public int getBid() {
         return bid;
     }
+
+    @Override
+    public String getSender() {
+        return sender;
+    }
+
+
 }

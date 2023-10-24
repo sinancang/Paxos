@@ -8,6 +8,6 @@ public record RefuseProposal(int maxBid) implements Command{
 
     @Override
     public int getBid() {
-        return bid;
+        return maxBid;
     }
 }

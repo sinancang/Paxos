@@ -1,6 +1,13 @@
 package comp512st.paxos.commands;
 
-import java.io.Serializable;
+public record Propose(int bid) implements Command {
+    @Override
+    public boolean isProposerCommand() {
+        return true;
+    }
 
-public record Propose(int bid) implements Serializable {
+    @Override
+    public int getBid() {
+        return bid;
+    }
 }

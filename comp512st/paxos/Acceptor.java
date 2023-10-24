@@ -4,6 +4,13 @@ import comp512.gcl.GCL;
 import comp512.utils.FailCheck;
 import comp512st.paxos.commands.*;
 
+<<<<<<< HEAD
+=======
+import java.io.IOException;
+import java.net.UnknownHostException;
+import java.util.LinkedList;
+import java.util.Objects;
+>>>>>>> 2726bfe (fixed acceptor constructor.)
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,13 +21,19 @@ public class Acceptor implements Runnable{
 
     int maxBid;
     Object value;
+<<<<<<< HEAD
 
+=======
+    Queue<Object> messages;
+    Queue<Object> confirmedMessages;
+>>>>>>> 2726bfe (fixed acceptor constructor.)
     GCL gcl;
     FailCheck failCheck;
     Logger logger;
 
     int numProcesses;
     String myProcess;
+<<<<<<< HEAD
 
     public Acceptor(Queue<Object> messages, Queue<Object> confirmedMessages, String myProcess, String[] allGroupProcesses,
             Logger logger, FailCheck failCheck, GCL gcl) {
@@ -30,12 +43,20 @@ public class Acceptor implements Runnable{
         this.maxBid = -1;
         this.value = null;
 
+=======
+    public Acceptor(Queue<Object> messages, Queue<Object> confirmedMessages ,String myProcess, String[] allGroupProcesses, Logger logger, FailCheck failCheck, GCL gcl) throws IOException, UnknownHostException {
+>>>>>>> 2726bfe (fixed acceptor constructor.)
         this.failCheck = failCheck;
         this.gcl = gcl;
         this.logger = logger;
 
         this.numProcesses = allGroupProcesses.length;
         this.myProcess = myProcess;
+<<<<<<< HEAD
+=======
+        this.messages = messages;
+        this.confirmedMessages = confirmedMessages;
+>>>>>>> 2726bfe (fixed acceptor constructor.)
 
     }
 

@@ -7,6 +7,7 @@ import comp512st.paxos.commands.*;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +16,7 @@ public class Acceptor implements Runnable{
     int maxBid;
     Object value;
     Queue<Object> messages;
-
+    Queue<Object> confirmedMessages;
     GCL gcl;
     FailCheck failCheck;
 
@@ -25,7 +26,7 @@ public class Acceptor implements Runnable{
     int timeout; // seconds
     Logger logger;
     String myProcess;
-    public Acceptor(Queue<Object> messages, String myProcess, String[] allGroupProcesses, Logger logger, FailCheck failCheck, GCL gcl) throws IOException, UnknownHostException {
+    public Acceptor(Queue<Object> messages, Queue<Object> confirmedMessages ,String myProcess, String[] allGroupProcesses, Logger logger, FailCheck failCheck, GCL gcl) throws IOException, UnknownHostException {
         this.failCheck = failCheck;
         this.currentBid = 0;
         this.numProcesses = allGroupProcesses.length;
@@ -33,7 +34,8 @@ public class Acceptor implements Runnable{
         this.gcl = gcl;
         this.logger = logger;
         this.myProcess = myProcess;
-        this.messages = new LinkedList<Object>();
+        this.messages = messages;
+        this.confirmedMessages = confirmedMessages;
 
     }
     @Override

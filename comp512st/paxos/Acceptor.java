@@ -41,6 +41,7 @@ public class Acceptor implements Runnable{
 
     @Override
     public void run() {
+
         while(true){
             while(this.messages.isEmpty()){
                 Thread.yield();
@@ -98,3 +99,4 @@ public class Acceptor implements Runnable{
         }
     }
 }
+

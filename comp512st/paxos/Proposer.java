@@ -3,16 +3,19 @@ package comp512st.paxos;
 import java.util.LinkedList;
 
 protected class Proposer implements Runnable {
-    int timeout_ms;
+    String myProcess;
+    int numProcesses;
+
     Queue<Object> actions;
     Queue<Object> messages;
     Queue<Object> values;
-    Object curVal;
-    String myProcess;
+
+    int timeout_ms;
     Failcheck failcheck;
-    int currentBid;
     Gcl gcl;
 
+    Object curVal;
+    int currentBid;
 
     public Proposer(Gcl gcl, Queue<Object> actions, Queue<Object> messages, String myProcess, Logger logger, Failcheck failcheck, int timeout_ms, int numProcesses) {
         this.actions = actions;
@@ -20,11 +23,13 @@ protected class Proposer implements Runnable {
         this.values = new LinkedList<Object>();
 
         this.myProcess = myProcess;
-        this.currentBid = Integer.parseInt(myProcess);
+        this.numProcesses = numProcesses;
+
         this.timeout_ms = timeout_ms;
         this.failcheck = failcheck;
-        this.numProcesses = numProcesses;
         this.gcl = gcl;
+
+        this.currentBid = Integer.parseInt(myProcess);
         this.curVal = null;
     }
 
@@ -37,6 +42,7 @@ protected class Proposer implements Runnable {
             }
             Object val = this.actions.poll();
             this.logger.log(Level.INFO, "Got value " + val + " from AL");
+            this.currentBid = Integer.parseInt(this.myProcess);
             this.suggest(val);
         }
     }
@@ -55,7 +61,9 @@ protected class Proposer implements Runnable {
         this.logger.log(Level.INFO, "Received majority vote.");
         gcl.broadcastMsg(new AskForAccept(this.currentBid, this.curVal, this.myProcess));
 
-        // TODO wait for accept
+        // TODO wait for ack
+        waitForAck();
+
         if (!values.isEmpty()) {
             suggest(values.poll());
         }
@@ -107,7 +115,7 @@ protected class Proposer implements Runnable {
         return false;
     }
 
-    public boolean waitForConfirm() {
+    public boolean waitForAck() {
         // TODO
     }
 }

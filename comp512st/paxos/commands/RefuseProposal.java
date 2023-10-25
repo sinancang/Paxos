@@ -1,6 +1,6 @@
 package comp512st.paxos.commands;
 
-public record RefuseProposal(int maxBid) implements Command{
+public record RefuseProposal(int maxBid, String sender) implements Command{
     @Override
     public boolean isProposerCommand() {
         return false;
@@ -9,5 +9,10 @@ public record RefuseProposal(int maxBid) implements Command{
     @Override
     public int getBid() {
         return maxBid;
+    }
+
+    @Override
+    public String getSender() {
+        return sender;
     }
 }

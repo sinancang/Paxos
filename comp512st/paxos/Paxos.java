@@ -4,8 +4,7 @@ package comp512st.paxos;
 import comp512.gcl.*;
 
 import comp512.utils.*;
-import comp512st.paxos.commands.Command;
-import comp512st.paxos.commands.Propose;
+import comp512st.paxos.commands.*;
 
 // Any other imports that you may need.
 import java.io.*;
@@ -27,17 +26,12 @@ public class Paxos
 
 	public Paxos(String myProcess, String[] allGroupProcesses, Logger logger, FailCheck failCheck) throws IOException, UnknownHostException
 	{
-		// Rember to call the failCheck.checkFailure(..) with appropriate arguments throughout your Paxos code to force fail points if necessary.
-		this.failCheck = failCheck;
-		this.numProcesses = allGroupProcesses.length;
-		// Initialize the GCL communication system as well as anything else you need to.
-		this.gcl = new GCL(myProcess, allGroupProcesses, null, logger);
+		// TODO
 	}
 
 	// This is what the application layer is going to call to send a message/value, such as the player and the move
 	public void broadcastTOMsg(Object val) throws InterruptedException {
-		waitForPromise();
-		waitForAck();
+		// TODO
 		gcl.broadcastMsg(val);
 	}
 
@@ -45,27 +39,16 @@ public class Paxos
 	// Messages delivered in ALL the processes in the group should deliver this in the same order.
 	public Object acceptTOMsg() throws InterruptedException
 	{
-
 		// This is just a place holder.
 		GCMessage gcmsg = gcl.readGCMessage();
-
 		return gcmsg.val;
 	}
 
 	// Add any of your own shutdown code into this method.
-	public void shutdownPaxosecondss()
+	public void shutdownPaxos()
 	{
+		// TODO
 		gcl.shutdownGCL();
-	}
-
-	public static void main(String[] args) {
-		Propose p1 = new Propose(1);
-		Propose p2 = new Propose(2);
-		System.out.println(p1.bid());
-		System.out.println(p2.bid());
-
-
-
 	}
 }
 

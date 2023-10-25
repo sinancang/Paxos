@@ -50,18 +50,19 @@ public class Acceptor implements Runnable{
                 Thread.yield();
             }
 
+            Object message = messages.poll();
             if (!(message instanceof Command)) {
-                this.logger.log(Level.SEVERE, "Received non-command object at acceptor process " + this.myProcess + "\n" + message);
+                this.logger.log(Level.WARNING, "Received non-command object at acceptor process " + this.myProcess + "\n" + message);
                 continue;
             }
-
-            Command message = messages.poll();
-            int inBid = message.getBid();
+            Command cmd = (Command) message;
+            int inBid = cmd.getBid();
+            Object response = null;
 
             switch(message.getClass().getSimpleName()){
                 case "Propose":
                     this.logger.log(Level.INFO,"Propose Message Received at Acceptor " + this.myProcess);
-                    Propose proposeMsg = (Propose) message;
+                    Propose proposeMsg = (Propose) cmd;
 
                     if(this.maxBid > inBid){
                         this.logger.log(Level.INFO,"Proposal with bid " + inBid + " refused at Acceptor " + this.myProcess + " with maxBid " + this.maxBid);

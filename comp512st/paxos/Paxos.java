@@ -4,11 +4,11 @@ package comp512st.paxos;
 import comp512.gcl.*;
 
 import comp512.utils.*;
-import comp512st.paxos.commands.*;
 
 // Any other imports that you may need.
 import java.io.*;
-import java.util.PriorityQueue;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.logging.*;
 import java.net.UnknownHostException;
 
@@ -26,7 +26,19 @@ public class Paxos
 
 	public Paxos(String myProcess, String[] allGroupProcesses, Logger logger, FailCheck failCheck) throws IOException, UnknownHostException
 	{
-		// TODO
+		long timeout_ms = 20;
+		this.logger = logger;
+		this.failCheck = failCheck;
+		GCL gcl = new GCL(myProcess, allGroupProcesses, null, logger);
+
+		Queue<Object> ProposerMessageQueue = new LinkedList<>();
+		Queue<Object> AcceptorMessageQueue = new LinkedList<>();
+		MessageReader messageReader = new MessageReader(gcl, ProposerMessageQueue, AcceptorMessageQueue);
+
+		Queue<Object> ProposerActionQueue = new LinkedList<>();
+		Proposer proposer = new Proposer(gcl, ProposerActionQueue, ProposerMessageQueue, myProcess, logger,
+				failCheck, timeout_ms, allGroupProcesses.length);
+		// Acceptor acceptor = new Acceptor(gcl);
 	}
 
 	// This is what the application layer is going to call to send a message/value, such as the player and the move
@@ -49,6 +61,22 @@ public class Paxos
 	{
 		// TODO
 		gcl.shutdownGCL();
+	}
+	public static void main(String[] args) {
+		class mutableTester {
+			Queue<Integer> seqnums;
+			mutableTester(Queue<Integer> seqnums) {
+				this.seqnums = seqnums;
+			}
+			public int getFirstElement() {
+				return seqnums.poll();
+			}
+		}
+		Queue<Integer> messages = new LinkedList<>();
+		mutableTester test = new mutableTester(messages);
+		messages.add(6);
+		messages.add(156);
+		System.out.println(test.getFirstElement());
 	}
 }
 

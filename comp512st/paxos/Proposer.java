@@ -4,8 +4,7 @@ import comp512.gcl.GCL;
 import comp512.utils.FailCheck;
 import comp512st.paxos.commands.*;
 
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
+import java.util.logging.*;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -39,7 +38,7 @@ public class Proposer implements Runnable {
             Logger logger, FailCheck failcheck, long timeout_ms, int numProcesses) {
         this.actions = actions;
         this.messages = messages;
-        this.values = new LinkedList<Object>();
+        this.values = new LinkedList<>();
 
         this.myProcess = myProcess;
         this.numProcesses = numProcesses;
@@ -76,6 +75,7 @@ public class Proposer implements Runnable {
         this.logger.log(Level.INFO, "Suggesting: " + val + " with bid: " + this.currentBid + " and timeout: " + timeout_ms);
         this.curVal = val;
         gcl.broadcastMsg(new Propose(this.currentBid, this.myProcess));
+
         boolean majority = this.waitForPromise();
         if (!majority) {
             this.currentBid += this.numProcesses;
@@ -86,10 +86,15 @@ public class Proposer implements Runnable {
         this.logger.log(Level.INFO, "Received majority vote.");
         gcl.broadcastMsg(new AskForAccept(this.currentBid, this.curVal, this.myProcess));
 
-        // TODO wait for ack
-        waitForAck();
+        boolean valueConfirmed = waitForAck();
+        if (valueConfirmed) {
+            gcl.broadcastMsg(new Confirm(this.currentBid, this.curVal, this.myProcess));
+        } else {
+            values.add(this.curVal);
+        }
 
         if (!values.isEmpty()) {
+            this.currentBid += this.numProcesses;
             suggest(values.poll());
         }
     }
@@ -150,7 +155,40 @@ public class Proposer implements Runnable {
     }
 
     public boolean waitForAck() {
-        // TODO
-        return true;
+        long startTime = System.currentTimeMillis();
+        int refusals = 0;
+        int acks = 0;
+        boolean majority = false;
+        while (refusals < Math.ceil(numProcesses/2) && !majority && System.currentTimeMillis() - startTime > timeout_ms) {
+            while (this.messages.isEmpty()) {
+                Thread.yield();
+            }
+
+            Object message = this.messages.poll();
+            if (!(message instanceof Command)) {
+                this.logger.log(Level.WARNING, "Received non-command object at acceptor process " + this.myProcess + "\n" + message);
+                continue;
+            }
+
+            Command msg = (Command) message;
+            if (msg.getBid() != this.currentBid) {
+                this.logger.log(Level.WARNING, "Received message with bid " + msg.getBid() + ", but current bid is " + this.currentBid);
+                continue;
+            }
+            if (msg instanceof DenyValue) {
+                refusals++;
+                continue;
+            }
+            if (!(msg instanceof AcceptAck)) {
+                this.logger.log(Level.WARNING, "Received a message that is not an ack or a deny at proposer" +
+                        this.myProcess + "\nMessage has class " + msg.getClass());
+                continue;
+            }
+            acks++;
+            if (acks > Math.ceil(numProcesses/2)) {
+                majority = true;
+            }
+        }
+        return majority;
     }
 }

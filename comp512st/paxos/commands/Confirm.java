@@ -1,6 +1,6 @@
 package comp512st.paxos.commands;
 
-public record Confirm(int bid, String sender) implements Command{
+public record Confirm(int bid, Object value, String sender) implements Command{
     @Override
     public boolean isProposerCommand() {
         return true;

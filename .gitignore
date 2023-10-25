@@ -32,3 +32,4 @@ build_tiapp.sh
 
 # Compiled java
 *.class
+out/

@@ -4,10 +4,6 @@ import comp512.gcl.GCL;
 import comp512.utils.FailCheck;
 import comp512st.paxos.commands.*;
 
-import java.io.IOException;
-import java.net.UnknownHostException;
-import java.util.LinkedList;
-import java.util.Objects;
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +23,7 @@ public class Acceptor implements Runnable{
     String myProcess;
 
     public Acceptor(Queue<Object> messages, Queue<Object> confirmedMessages, String myProcess, String[] allGroupProcesses,
-            Logger logger, FailCheck failCheck, GCL gcl) throws IOException, UnknownHostException {
+            Logger logger, FailCheck failCheck, GCL gcl) {
         this.messages = messages;
         this.confirmedMessages = confirmedMessages;
 

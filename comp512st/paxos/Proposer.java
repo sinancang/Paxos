@@ -1,5 +1,7 @@
 package comp512st.paxos;
 
+import comp512.gcl.GCL;
+import comp512.utils.FailCheck;
 import comp512st.paxos.commands.*;
 
 import java.lang.System.Logger;
@@ -16,8 +18,8 @@ public class Proposer implements Runnable {
     Queue<Object> values;
 
     long timeout_ms;
-    Failcheck failcheck;
-    Gcl gcl;
+    FailCheck failcheck;
+    GCL gcl;
     Logger logger;
 
     Object curVal;
@@ -33,8 +35,8 @@ public class Proposer implements Runnable {
      * @param timeout_ms: Timeout for proposer in ms
      * @param numProcesses: Number of paxos instances in TI game
      */
-    public Proposer(Gcl gcl, Queue<Object> actions, Queue<Object> messages, String myProcess,
-            Logger logger, Failcheck failcheck, long timeout_ms, int numProcesses) {
+    public Proposer(GCL gcl, Queue<Object> actions, Queue<Object> messages, String myProcess,
+            Logger logger, FailCheck failcheck, long timeout_ms, int numProcesses) {
         this.actions = actions;
         this.messages = messages;
         this.values = new LinkedList<Object>();
@@ -149,5 +151,6 @@ public class Proposer implements Runnable {
 
     public boolean waitForAck() {
         // TODO
+        return true;
     }
 }

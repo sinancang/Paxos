@@ -25,3 +25,10 @@ replay_pid*
 
 # avoid path getting overriden
 build_tiapp.sh
+
+# Intellij
+*.iml
+.idea
+
+# Compiled java
+*.class

@@ -4,10 +4,7 @@ import comp512.gcl.GCL;
 import comp512.utils.FailCheck;
 import comp512st.paxos.commands.*;
 
-import java.io.IOException;
-import java.net.UnknownHostException;
-import java.util.LinkedList;
-import java.util.Objects;
+
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;

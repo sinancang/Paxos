@@ -1,4 +1,3 @@
-Paxos/src/analysis/** linguist-vendored
-data/** linguist-vendored
+Paxos/src/analysis/data** linguist-vendored
 *.java linguist-language=Java
 *.ipynb linguist-vendored

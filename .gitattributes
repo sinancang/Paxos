@@ -1,3 +1,8 @@
 Paxos/src/analysis/data/** linguist-vendored
-*.java linguist-language=Java
 *.ipynb linguist-vendored
+*.java linguist-language=Java
+
+# Exclude all common Roff extensions
+*.[1-9] linguist-vendored
+*.man linguist-vendored
+*.roff linguist-vendored

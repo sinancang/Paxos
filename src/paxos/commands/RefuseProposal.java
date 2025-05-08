@@ -1,4 +1,4 @@
-package comp512st.paxos.commands;
+package paxos.commands;
 
 public record RefuseProposal(int maxBid, String sender) implements Command{
     @Override

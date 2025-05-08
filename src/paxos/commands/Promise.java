@@ -1,4 +1,4 @@
-package comp512st.paxos.commands;
+package paxos.commands;
 
 public record Promise(int bid, int maxBid, Object value, String sender) implements Command {
     @Override

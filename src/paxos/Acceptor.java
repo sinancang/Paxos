@@ -1,8 +1,8 @@
-package comp512st.paxos;
+package paxos;
 
 import comp512.gcl.GCL;
 import comp512.utils.FailCheck;
-import comp512st.paxos.commands.*;
+import paxos.commands.*;
 
 import java.io.IOException;
 import java.net.UnknownHostException;

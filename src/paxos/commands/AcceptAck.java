@@ -1,4 +1,4 @@
-package comp512st.paxos.commands;
+package paxos.commands;
 
 import java.io.Serializable;
 

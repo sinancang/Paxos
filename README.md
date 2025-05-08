@@ -1,17 +1,157 @@
-# Paxos
 
-This is an implementation of the Paxos consensus algorithm originally proposed by Leslie Lamport in 1998. Here is a [link to the original paper](https://lamport.azurewebsites.net/pubs/lamport-paxos.pdf). We use this algorithm to maintain total order of actions of up to 10 independent actors in a "Treasure Island" console game.
+# 🏝️ Treasure Island - Paxos Implementation
 
-Details on the implementation can be found in `Project Report.pdf`. Further, some performance metrics are provided in `src/analysis/performance_analysis.ipynb`.
+This project implements a distributed multiplayer Treasure Island game using the Paxos consensus algorithm for message ordering and failure tolerance.
 
-Disclaimer: files under `src/tests` and `src/tiapp`, as well as `build_tiapp.sh` and `comp512p2.jar` do not belong to us, they belong to the instructor of the course Professor Bettina Kemme. Anything else in the repository has been written by and belongs to the owners.
+---
 
-## Objective
+### 📦 Project Structure
 
-Given n client processes `{p1, ..., pn}`, each process maintains two lists of values: one is a list which contains the actions that have been accepted by the group `Ai = {a1, a2, ..., am}`, and the other is the list of actions received from the application layer (player actions) `Bi = {b1, b2, ..., bk}`. The goal of this algorithm is to ensure that the list `Ai` is non-trivially consistent among all processes, and that the players make progress (`Bi` gets smaller at each timestep if no new actions are received).
+```
+Paxos/
+├── src/
+│   ├── paxos/                  # Paxos logic (Proposer, Acceptor, etc.)
+│   ├── tiapp/                  # Interactive + auto player apps
+│   └── ...                     # Supporting classes (commands, utils)
+├── comp512p2.jar              # Provided framework (GCL, TI, FailCheck)
+├── build.xml                  # Ant build and run setup
+├── run_sim.sh                 # Runs 1 interactive + N bots locally
+└── README.md                  # You're here
+```
 
-## Short Description of Algorithm
+---
 
-At each round, processes propose to be a leader by multicasting their `bid` or ballot id. A recipient sends back a promise (potentially containing previously accepted values) if the proposal has the highest `bid` it has seen so far. When a process receives a majority, it becomes a leader and sends out an `Accept?` message containing its proposed action. Upon receiving a majority of accept acknowledgements, the process can safely deliver the action to the application layer.
+### 🚀 Getting Started
 
-A lot of the details are omitted, they may be found in the original paper or online.
+#### 🔧 Requirements
+
+* Java 21+ (use `--release 21` in build)
+* Ant (for building/running)
+* `comp512p2.jar` in the project root
+
+---
+
+#### 🛠️ Build the project
+
+```bash
+ant compile
+```
+
+---
+
+#### 👤 Run a single player
+
+```bash
+ant run
+```
+
+This launches the interactive version (`TreasureIslandApp`) with hardcoded arguments inside `build.xml`.
+
+---
+
+#### 🤖 Simulate multiplayer locally
+
+```bash
+./run_sim.sh
+```
+
+This:
+
+* Launches bots (using `TreasureIslandAppAuto`) on different ports
+* Starts the interactive player (you) as player 1
+* Bots send moves at random or interval-based timing
+
+You can adjust:
+
+```bash
+MAXMOVES=0     # 0 = infinite moves
+INTERVAL=500   # ms between moves
+```
+
+Inside `run_sim.sh`.
+
+---
+
+### 🧠 Paxos Interface
+
+The app uses a custom Paxos implementation:
+
+```java
+Paxos paxos = new Paxos(myAddr, groupAddrs[], logger, failCheck);
+```
+
+Public interface:
+
+```java
+paxos.broadcastTOMsg(Object val);
+Object paxos.acceptTOMsg();
+paxos.shutdownPaxos();
+```
+
+---
+
+### ⚙️ Auto Player Modes
+
+You can launch a bot manually:
+
+```bash
+java -cp comp512p2.jar:build tiapp.TreasureIslandAppAuto \
+  192.168.1.66:4002 \
+  192.168.1.66:4001,192.168.1.66:4002,192.168.1.66:4003 \
+  game42 3 2 0 500 seed2
+```
+
+Arguments:
+
+```
+<myaddr> <group> <gameid> <numplayers> <playernum> <maxmoves> <interval> <randseed> [FAILMODE]
+```
+
+---
+
+### 🪵 Logging
+
+* Logs are written to `logs/<gameid>-<host.port>-<player>.log`
+* To toggle display from bots, set `UPDATEDISPLAY=true` in the environment
+
+---
+
+### 💥 Failure Simulation
+
+You can trigger failures in the interactive or auto app using commands like:
+
+```
+FI   → Fail immediately
+FRP  → Fail on receiving propose
+FSV  → Fail after sending vote
+FSP  → Fail after sending propose
+FOL  → Fail after becoming leader
+FMV  → Fail after value accepted
+```
+
+The system must handle  **real-world failure conditions** , like:
+
+* A leader crashing
+* A participant dropping offline mid-vote
+* A message being dropped or duplicated
+
+Failure simulation is built into the app to test how robust the Paxos implementation is under stress.
+
+---
+
+### 👥 Multiplayer
+
+To run on multiple machines:
+
+* Set each player’s `myProcess` to their real IP:PORT
+* Ensure all machines use the same `<group>` list
+* Avoid using `127.0.0.1` — Paxos/GCL will reject it
+
+---
+
+### 📋 TODO / Ideas
+
+* Smarter bot strategies (greedy, pathfinding)
+* Dynamic game configuration (JSON/TOML)
+* Web-based UI overlay
+* Game replay recorder

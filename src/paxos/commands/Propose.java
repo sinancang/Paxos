@@ -1,4 +1,4 @@
-package comp512st.paxos.commands;
+package paxos.commands;
 
 public record Propose(int bid, String sender) implements Command {
     @Override
